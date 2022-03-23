@@ -1,6 +1,8 @@
 # Heist in the Night
 Simple 2D Top-Level Game made in Godot
 
+Start playing it here: https://taihobbs.itch.io/heist-in-the-night
+
 # Start Up Screen
 Press `Start Heist` to start the gameplay.
 
