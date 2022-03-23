@@ -1,0 +1,113 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Interface/Theme.tres" type="Theme" id=1]
+[ext_resource path="res://Heist_Meisters_Assets/GFX/Interface/PNG/glassPanel_cornerTL.png" type="Texture" id=2]
+[ext_resource path="res://Heist_Meisters_Assets/GFX/Interface/PNG/dotRed.png" type="Texture" id=3]
+[ext_resource path="res://Heist_Meisters_Assets/GFX/Interface/PNG/dotWhite.png" type="Texture" id=4]
+[ext_resource path="res://Interface/SuspicionMeter.gd" type="Script" id=5]
+[ext_resource path="res://Interface/LootContainer.gd" type="Script" id=6]
+[ext_resource path="res://Heist_Meisters_Assets/GFX/Interface/PNG/glassPanel_cornerTR.png" type="Texture" id=7]
+
+[node name="GUI" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -240.0
+margin_top = -111.0
+margin_right = -24.0
+margin_bottom = -24.0
+texture = ExtResource( 2 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/NinePatchRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/NinePatchRect/CenterContainer"]
+margin_left = 36.0
+margin_top = 25.0
+margin_right = 167.0
+margin_bottom = 49.0
+
+[node name="Label" type="Label" parent="Control/NinePatchRect/CenterContainer/HBoxContainer"]
+margin_top = 1.0
+margin_right = 103.0
+margin_bottom = 22.0
+text = "Suspicion"
+
+[node name="SuspicionMeter" type="TextureProgress" parent="Control/NinePatchRect/CenterContainer/HBoxContainer" groups=[
+"SuspicionMeter",
+]]
+margin_left = 107.0
+margin_right = 131.0
+margin_bottom = 24.0
+max_value = 200.0
+step = 0.25
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 3 )
+fill_mode = 4
+script = ExtResource( 5 )
+
+[node name="LootContainer" type="NinePatchRect" parent="Control" groups=[
+"Loot",
+]]
+margin_left = 30.0
+margin_top = 16.0
+margin_right = 330.0
+margin_bottom = 136.0
+texture = ExtResource( 7 )
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/LootContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.4746
+margin_top = 6.66113
+margin_right = -13.5254
+margin_bottom = 8.66113
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control/LootContainer/VBoxContainer"]
+margin_right = 276.0
+margin_bottom = 45.0
+text = "LOOT
+"
+
+[node name="ItemList" type="ItemList" parent="Control/LootContainer/VBoxContainer"]
+margin_top = 49.0
+margin_right = 276.0
+margin_bottom = 58.0
+auto_height = true
+max_columns = 7
+icon_scale = 0.25
