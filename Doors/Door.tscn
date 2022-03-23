@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Heist_Meisters_Assets/SFX/doorOpen_2.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Heist_Meisters_Assets/SFX/doorClose_1.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Heist_Meisters_Assets/GFX/PNG/Tiles/tile_473.png" type="Texture" id=3]
+[ext_resource path="res://Doors/Door.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 42 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 10 )
+
+[sub_resource type="OccluderPolygon2D" id=3]
+closed = false
+polygon = PoolVector2Array( -31.8422, -8.49825, 31.5107, -8.61365, 31.6261, 8.69588, -32.3038, 8.46508 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "Open"
+length = 4.5
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("DoorSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -64, 0 ), Vector2( -64, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 1 )
+}, {
+"end_offset": 0.0438414,
+"start_offset": 0.0,
+"stream": ExtResource( 2 )
+} ],
+"times": PoolRealArray( 0, 4 )
+}
+
+[node name="Door" type="Area2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource( 4 )
+
+[node name="CharacterDetector" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="DoorSprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="DoorSprite"]
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorSprite/StaticBody2D"]
+visible = false
+shape = SubResource( 2 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="DoorSprite"]
+visible = false
+occluder = SubResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Open = SubResource( 4 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+[connection signal="body_entered" from="." to="." method="_on_Door_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Door_body_exited"]
+[connection signal="input_event" from="." to="." method="_on_Door_input_event"]
