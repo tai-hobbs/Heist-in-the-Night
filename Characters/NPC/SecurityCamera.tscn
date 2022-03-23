@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Lightmaps/Flashlight.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Heist_Meisters_Assets/GFX/PNG/Tiles/tile_463.png" type="Texture" id=2]
+[ext_resource path="res://Heist_Meisters_Assets/GFX/PNG/Tiles/tile_536.png" type="Texture" id=3]
+[ext_resource path="res://Characters/NPC/PlayerDetection.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="Animation" id=2]
+resource_name = "CameraRotation"
+length = 11.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 6, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 60.0, 60.0, 120.0, 120.0 ]
+}
+
+[node name="SecurityCamera" type="Node2D"]
+
+[node name="CameraArm" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CameraBody" type="KinematicBody2D" parent="."]
+position = Vector2( 7.904, -1.256 )
+rotation = 1.15792
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="CameraBody"]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBody"]
+visible = false
+shape = SubResource( 1 )
+
+[node name="Flashlight" parent="CameraBody" instance=ExtResource( 1 )]
+position = Vector2( 0, -23.243 )
+rotation = -1.56985
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraBody"]
+autoplay = "CameraRotation"
+anims/CameraRotation = SubResource( 2 )
